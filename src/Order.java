@@ -1,6 +1,6 @@
 
 public class Order {
-	int status;  // 0:ordered placed; 1:order accepted; 2:order shipped; 3:order received; 4:order refused/failed;
+	String status;  //
 	
 	Producer producer;
 	Consumer consumer;
@@ -16,11 +16,16 @@ public class Order {
 		this.product = product;
 		this.quantity = quantity;
 		
+		status = "IN_EXECUTION";
 		id = counter++;
 	}
 	
-	public int getStatus() {
+	public String getStatus() {
 		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	public double getPayable() {
@@ -29,5 +34,9 @@ public class Order {
 	
 	public int getId() {
 		return this.id;
+	}
+	
+	public Product getProduct() {
+		return this.product;
 	}
 }

@@ -11,8 +11,7 @@ public class Producer {
 	static int counter = -1;
 	int id;
 	
-	ArrayList<Order> in_execution_orders;
-	ArrayList<Order> completed_orders;
+	ArrayList<Order> orders;
 	
 	public Producer() {
 		cash = 10000 * (1+Utils.doubleInRange(-0.1, 0.1));
@@ -20,13 +19,10 @@ public class Producer {
 		margins = new double[5];
 		
 		setMargins();
-		in_execution_orders = null;
-		completed_orders = null;
 		counter++;
 		id = counter;
 		
-		in_execution_orders = new ArrayList<Order>();
-		completed_orders = new ArrayList<Order>();
+		orders = new ArrayList<Order>();
 		
 		factories = new ArrayList<Factory>();
 		factories.add(new Factory());
@@ -66,8 +62,28 @@ public class Producer {
 		return true;
 	}
 	
+	public int getNExecutionOrders() {
+		int res = 0;
+		for(Order order : orders)
+		{
+			if(order.getStatus() == "IN_EXECUTION")
+				res++;
+		}
+		return res;
+	}
+	
+	public int getNCompletedOrders() {
+		int res = 0;
+		for(Order order : orders)
+		{
+			if(order.getStatus() == "COMPLETED")
+				res++;
+		}
+		return res;
+	}
+	
 	public boolean canTakeMoreOrder() {
-		return threshold > in_execution_orders.size();
+		return threshold > getNExecutionOrders();
 	}
 	
 	public boolean canOpenNewFactory(Product product) {
@@ -83,18 +99,39 @@ public class Producer {
 		{
 			if(factory.isIdle())
 			{
-				in_execution_orders.add(order);
+				orders.add(order);
 				factory.assignOrders(order);
 				factory.setIdle(false);
 			}
 		}
 	}
 	
-	public int getNOrdersInExecution() {
-		return in_execution_orders.size();
+	public ArrayList<Factory> getFactories() {
+		return this.factories;
 	}
 	
-	public int getNCompletedOrders() {
-		return completed_orders.size();
+	public void receivePayment(double payable) {
+		this.cash += payable;
+	}
+	
+	public void updateOrderStatus(int n) {
+		for(Order order : orders)
+		{
+			if(n % order.getProduct().nCycles == 0)
+			{
+				order.setStatus("COMPLETED");
+			}
+		}
+		
+		for(Factory factory : factories)
+		{
+			ArrayList<Order> orders = factory.getOrders();
+			for(Order order : orders)
+			{
+				if(n % order.getProduct().nCycles == 0)
+					order.setStatus("COMPLETED");
+			}
+			factory.updateIdel();
+		}
 	}
 }

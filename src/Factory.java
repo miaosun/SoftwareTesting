@@ -40,4 +40,29 @@ public class Factory {
 	public void setIdle(boolean idle) {
 		this.idle = idle;
 	}
+	
+	public void updateIdel() {
+		int aux = 0;
+		for(Order order : orders)
+		{
+			if(order.getStatus() == "COMPLETED")
+				aux++;
+		}
+		if(aux == orders.size())
+			setIdle(true);
+	}
+	
+	public int getNCompletedOrders() {
+		int res = 0;
+		for(Order order : orders)
+		{
+			if(order.status == "COMPLETED")
+				res++;
+		}
+		return res;
+	}
+	
+	public ArrayList<Order> getOrders() {
+		return this.orders;
+	}
 }
