@@ -1,5 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class Simulation {
@@ -10,14 +11,37 @@ public class Simulation {
 		ArrayList<Consumer> consumers = new ArrayList<Consumer>();
 		ArrayList<Product> products = new ArrayList<Product>();
 
-		boolean change_wage = false;  //false: consumer's wage remain constant; true: increase by a small random value (<5%)
+		System.out.println("*******************************************************************");
+		System.out.println("**                                                               **");
+		System.out.println("**          Welcome to Consumer-Producer Simulation              **");
+		System.out.println("**                                                               **");
+		System.out.println("*******************************************************************");
+
+		boolean change_wage = false;
+		int op;
+		Scanner sc = new Scanner(System.in);
+		
+		do { 
+			System.out.println("\nPlease select the option for Consumer's wage:");
+			System.out.println("0: Remains constant");
+			System.out.println("1: Increases by a small random value(<5%) every 100 cycles");
+
+			op = sc.nextInt();
+
+			if(op == 0)
+				change_wage = false;  //false: consumer's wage remain constant; 
+			else if(op == 1)
+				change_wage = true;   //true: increase by a small random value (<5%)
+		}while((op!=0 && op!=1));
+		
+		sc.close();
 		
 		/*
 		 *  Initialize all consumers
 		 */
 		for(int i=0; i<1000; i++)
 		{
-			consumers.add(new Consumer(change_wage));
+			consumers.add(new Consumer());
 		}
 
 		/*
@@ -35,14 +59,14 @@ public class Simulation {
 		{
 			products.add(new Product());
 		}
-		
+
 		/*
 		 *  Cycles
 		 */
 		for(int i=0; i<10; i++) 
 		{
 			System.out.println("********************** Cycle: " + i + " **************************");
-			
+
 			/*
 			 *  Transactions of orders between consumers and producers
 			 */
@@ -51,8 +75,9 @@ public class Simulation {
 				//System.out.println("Consumer " + j + ": " + new DecimalFormat("#.00").format(consumers.get(j).getCash()));
 				consumers.get(j).start(producers, products);
 				consumers.get(j).updateCash();
+				consumers.get(j).updateWage(i, change_wage);
 			}
-			
+
 			/*
 			 *  Required output
 			 */
@@ -61,7 +86,7 @@ public class Simulation {
 				System.out.println("   **************** Producer " + producers.get(j).getId() + " ****************");
 				System.out.println("      Number of orders in execution: " + producers.get(j).getNExecutionOrders());
 				System.out.println("      Number of completed orders: " + producers.get(j).getNCompletedOrders());
-				
+
 				ArrayList<Factory> factories = producers.get(j).getFactories();
 				System.out.println("      Number of factories: " + factories.size());
 				System.out.println("      Number of completed orders per factory:");
@@ -72,7 +97,7 @@ public class Simulation {
 				System.out.println("      Cash available: " + new DecimalFormat("#.00").format(producers.get(j).getCash()));
 				System.out.println("   *********************************************");
 				System.out.println();
-				
+
 				// update order status, update cash
 				producers.get(j).updateData(i);
 			}

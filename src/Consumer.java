@@ -4,18 +4,15 @@ import java.util.ArrayList;
 public class Consumer {
 	double wage;  //1. stay constant;  2. increase by a small random value (<5%)
 	double cash;
-	boolean change_wage;
 
 	Product product;
 	ArrayList<Order> orders;
 
-	public Consumer(boolean change_wage) {
+	public Consumer() {
 		double percentage = Utils.doubleInRange(-0.1, 0.1);
 		cash = 150 * (1+percentage);
 
 		wage = 200;
-
-		this.change_wage = change_wage;
 
 		product = null;
 
@@ -41,22 +38,25 @@ public class Consumer {
 				payForOrder(product.getPrice() * quantity, producer);
 			}
 			//else
-				//System.out.println("Can't make order");
+			//System.out.println("Can't make order");
 		}
 		//else
-			//System.out.println("Not going to buy anything in this cycle");
+		//System.out.println("Not going to buy anything in this cycle");
 
 	}
 
-	public void updateWage()  //calls once every 100 cycles
+	public void updateWage(int n, boolean change_wage)  //calls once every 100 cycles
 	{
 		if(change_wage)
 		{
-			double rand = Utils.doubleInRange(0, 0.05);
-			wage *= (1+rand);
+			if(n % 100 == 0)
+			{
+				double rand = Utils.doubleInRange(0, 0.05);
+				wage *= (1+rand);
+			}
 		}
 	}
-	
+
 	public Producer selectProducer(ArrayList<Producer> producers) {
 
 		int index = Utils.intInRange(0, producers.size()-1);
