@@ -50,6 +50,7 @@ public class Simulation {
 			{
 				//System.out.println("Consumer " + j + ": " + new DecimalFormat("#.00").format(consumers.get(j).getCash()));
 				consumers.get(j).start(producers, products);
+				consumers.get(j).updateCash();
 			}
 			
 			/*
@@ -72,7 +73,8 @@ public class Simulation {
 				System.out.println("   *********************************************");
 				System.out.println();
 				
-				producers.get(j).updateOrderStatus(i);
+				// update order status, update cash
+				producers.get(j).updateData(i);
 			}
 			System.out.println("   Consumers' average cash: " + new DecimalFormat("#.00").format(Utils.averageConsumerCash(consumers)));
 			System.out.println("**********************************************************");

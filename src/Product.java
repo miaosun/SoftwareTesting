@@ -11,7 +11,7 @@ public class Product {
 	
 	public Product()
 	{
-		price = Utils.doubleInRange(15, 25);
+		price = Utils.doubleInRange(10, 25);
 		type = Utils.intInRange(0, 4);
 		if(type == 0 || type == 1 || type == 2)
 			nCycles = 5;

@@ -66,7 +66,7 @@ public class Producer {
 		int res = 0;
 		for(Order order : orders)
 		{
-			if(order.getStatus() == "IN_EXECUTION")
+			if(order.getStatus().equals("IN_EXECUTION"))
 				res++;
 		}
 		return res;
@@ -76,10 +76,23 @@ public class Producer {
 		int res = 0;
 		for(Order order : orders)
 		{
-			if(order.getStatus() == "COMPLETED")
+			if(order.getStatus().equals("COMPLETED"))
 				res++;
 		}
 		return res;
+	}
+	
+	public boolean orderSameProduct(Product product) {
+		for(Factory factory : factories)
+		{
+			ArrayList<Order> orders = factory.getOrders();
+			for(Order order : orders)
+			{
+				if(product.getId() == order.getProduct().getId())
+					return true;
+			}
+		}
+		return false;
 	}
 	
 	public boolean canTakeMoreOrder() {
@@ -92,6 +105,7 @@ public class Producer {
 	
 	public void buildFactory() {
 		factories.add(new Factory());
+		this.cash -= Factory.construction_cost;
 	}
 	
 	public void assignOrderToFactory(Order order) {
@@ -114,7 +128,7 @@ public class Producer {
 		this.cash += payable;
 	}
 	
-	public void updateOrderStatus(int n) {
+	public void updateData(int n) {
 		for(Order order : orders)
 		{
 			if(n % order.getProduct().nCycles == 0)
@@ -133,5 +147,6 @@ public class Producer {
 			}
 			factory.updateIdel();
 		}
+		cash -= Factory.running_cost;
 	}
 }

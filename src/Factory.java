@@ -45,7 +45,7 @@ public class Factory {
 		int aux = 0;
 		for(Order order : orders)
 		{
-			if(order.getStatus() == "COMPLETED")
+			if(order.getStatus() .equals("COMPLETED"))
 				aux++;
 		}
 		if(aux == orders.size())
@@ -56,7 +56,7 @@ public class Factory {
 		int res = 0;
 		for(Order order : orders)
 		{
-			if(order.status == "COMPLETED")
+			if(order.status.equals("COMPLETED"))
 				res++;
 		}
 		return res;

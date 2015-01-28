@@ -13,7 +13,7 @@ public class Consumer {
 		double percentage = Utils.doubleInRange(-0.1, 0.1);
 		cash = 150 * (1+percentage);
 
-		wage = 300;
+		wage = 200;
 
 		this.change_wage = change_wage;
 
@@ -67,9 +67,14 @@ public class Consumer {
 			//System.out.println("Selected producer: " + res.getId());
 			return res;
 		}
-		else if(res.canTakeMoreOrder() && res.canOpenNewFactory(product))
+		if(res.canTakeMoreOrder() && res.orderSameProduct(product))
 		{
 			//System.out.println("New factory opened for: " + res.getId());
+			//producers.get(res.getId()).buildFactory();
+			return res;
+		}
+		else if(res.canTakeMoreOrder() && res.canOpenNewFactory(product))
+		{
 			producers.get(res.getId()).buildFactory();
 			return res;
 		}
