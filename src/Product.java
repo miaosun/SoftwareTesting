@@ -6,7 +6,7 @@ public class Product {
 	int nCycles;
 	int type;
 	
-	static int count = 0;
+	static int count = -1;
 	int id;
 	
 	public Product()

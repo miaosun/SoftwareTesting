@@ -12,7 +12,7 @@ public class Simulation {
 
 		boolean change_wage = false;  //false: consumer's wage remain constant; true: increase by a small random value (<5%)
 		
-		for(int i=0; i<100; i++)
+		for(int i=0; i<1000; i++)
 		{
 			consumers.add(new Consumer(change_wage));
 		}
@@ -29,11 +29,19 @@ public class Simulation {
 		
 		for(int i=0; i<1; i++) // cycles
 		{
-			System.out.println("     Cycle: " + i);
-			for(int j=0; j<consumers.size(); j++)
+			System.out.println("********************** Cycle: " + i + " **************************");
+			for(int j=0; j<consumers.size(); j++)    // consumer
 			{
 				System.out.println("Consumer " + j + ": " + new DecimalFormat("#.00").format(consumers.get(j).getCash()));
 				consumers.get(j).start(producers, products);
+			}
+			
+			for(int j=0; j<producers.size(); j++)
+			{
+				System.out.println("Producer " + producers.get(j).getId() + ":");
+				System.out.println("   Number of orders in execution: " + producers.get(j).getNOrdersInExecution());
+				System.out.println("   Number of completed orders: " + producers.get(j).getNCompletedOrders());
+				System.out.println();
 			}
 		}
 

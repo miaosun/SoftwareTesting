@@ -8,21 +8,28 @@ public class Producer {
 	double[] margins;
 	int threshold;
 	
-	static int counter = 0;
+	static int counter = -1;
 	int id;
 	
-	ArrayList<Order> orders;
+	ArrayList<Order> in_execution_orders;
+	ArrayList<Order> completed_orders;
 	
 	public Producer() {
 		cash = 10000 * (1+Utils.doubleInRange(-0.1, 0.1));
-		threshold = Utils.intInRange(2, 10);
+		threshold = Utils.intInRange(2, 5);
 		margins = new double[5];
-		factories = new ArrayList<Factory>();
-		factories.add(new Factory());
+		
 		setMargins();
-		orders = null;
+		in_execution_orders = null;
+		completed_orders = null;
 		counter++;
 		id = counter;
+		
+		in_execution_orders = new ArrayList<Order>();
+		completed_orders = new ArrayList<Order>();
+		
+		factories = new ArrayList<Factory>();
+		factories.add(new Factory());
 	}
 	
 	public void start() {
@@ -39,7 +46,7 @@ public class Producer {
 	}
 
 	public double getProductPrice(Product product) {		
-		return margins[product.getId()-1] * product.getPrice();
+		return margins[product.getId()] * product.getPrice();
 	}
 	
 	public int getId() {
@@ -60,10 +67,34 @@ public class Producer {
 	}
 	
 	public boolean canTakeMoreOrder() {
-		return threshold > orders.size();
+		return threshold > in_execution_orders.size();
 	}
 	
 	public boolean canOpenNewFactory(Product product) {
 		return (cash - Factory.construction_cost - product.getNCycles() > 0 ? true : false);
+	}
+	
+	public void buildFactory() {
+		factories.add(new Factory());
+	}
+	
+	public void assignOrderToFactory(Order order) {
+		for(Factory factory : factories)
+		{
+			if(factory.isIdle())
+			{
+				in_execution_orders.add(order);
+				factory.assignOrders(order);
+				factory.setIdle(false);
+			}
+		}
+	}
+	
+	public int getNOrdersInExecution() {
+		return in_execution_orders.size();
+	}
+	
+	public int getNCompletedOrders() {
+		return completed_orders.size();
 	}
 }

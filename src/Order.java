@@ -1,6 +1,5 @@
 
 public class Order {
-	int invoice_number;
 	int status;  // 0:ordered placed; 1:order accepted; 2:order shipped; 3:order received; 4:order refused/failed;
 	
 	Producer producer;
@@ -8,11 +7,16 @@ public class Order {
 	Product product;
 	int quantity;
 	
+	static int counter = -1;
+	int id;
+	
 	public Order(Producer producer, Consumer consumer, Product product, int quantity) {
 		this.producer = producer;
 		this.consumer = consumer;
 		this.product = product;
 		this.quantity = quantity;
+		
+		id = counter++;
 	}
 	
 	public int getStatus() {
@@ -21,5 +25,9 @@ public class Order {
 	
 	public double getPayable() {
 		return product.getPrice() * quantity;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 }
