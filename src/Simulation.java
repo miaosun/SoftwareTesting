@@ -78,6 +78,7 @@ public class Simulation {
 			}
 			System.out.println("   Consumers' average cash: " + new DecimalFormat("#.00").format(Utils.averageConsumerCash(consumers)));
 			System.out.println("**********************************************************");
+			System.out.println();
 		}
 	}
 
