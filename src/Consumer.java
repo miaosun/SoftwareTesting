@@ -31,7 +31,7 @@ public class Consumer {
 			//2. select the first producer with lowest price to place an order
 			Producer producer = selectProducer(producers);
 
-			if(producer != null)
+			if(producer != null && cash >= product.getPrice()*quantity)
 			{
 				//3. Place order and pay for order
 				placeOrder(producer, quantity);
@@ -45,18 +45,17 @@ public class Consumer {
 
 	}
 
-	public void updateWage(int n, boolean change_wage)  //calls once every 100 cycles
-	{
-		if(change_wage)
-		{
-			if(n % 100 == 0)
-			{
-				double rand = Utils.doubleInRange(0, 0.05);
-				wage *= (1+rand);
-			}
-		}
+	public boolean buyOrSkip() {
+		if(cash <= 0)
+			return false;
+		else
+			return (Utils.intInRange(0, 1) == 1 ? true : false);
 	}
 
+	public void selectProduct(ArrayList<Product> products) {
+		product = products.get(Utils.intInRange(0,4));
+	}
+	
 	public Producer selectProducer(ArrayList<Producer> producers) {
 
 		int index = Utils.intInRange(0, producers.size()-1);
@@ -82,36 +81,34 @@ public class Consumer {
 			return null;
 	}
 
-	public void updateCash() // end of each cycle
-	{
-		cash += wage;
-	}
-
-	public void selectProduct(ArrayList<Product> products)
-	{
-		product = products.get(Utils.intInRange(0,4));
-	}
-
-	public double getCash()
-	{
-		return cash;
-	}
-
-	public void placeOrder(Producer producer, int quantity) 
-	{
+	public void placeOrder(Producer producer, int quantity) {
 		Order order = new Order(producer, this, product, quantity);
 		producer.assignOrderToFactory(order);
 		orders.add(order);
 		//System.out.println("++ Order made with producer: " + producer.getId());
 	}
 
-	public void payForOrder(double payable, Producer producer)
-	{
+	public void payForOrder(double payable, Producer producer) {
 		cash -= payable;
 		producer.receivePayment(payable);
 	}
+	
+	public void updateWage(int n, boolean change_wage) {
+		if(change_wage)
+		{
+			if(n % 100 == 0) // if change_wage is true, then update Wage in each 100 cycles
+			{
+				double rand = Utils.doubleInRange(0, 0.05);
+				wage *= (1+rand);
+			}
+		}
+	}
 
-	public boolean buyOrSkip() {
-		return (Utils.intInRange(0, 1) == 1 ? true : false);
+	public void updateCash() {
+		cash += wage;
+	}
+
+	public double getCash() {
+		return cash;
 	}
 }

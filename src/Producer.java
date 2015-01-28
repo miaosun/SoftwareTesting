@@ -15,7 +15,7 @@ public class Producer {
 
 	public Producer() {
 		cash = 10000 * (1+Utils.doubleInRange(-0.1, 0.1));
-		threshold = Utils.intInRange(2, 5);
+		threshold = Utils.intInRange(2, 10);
 		margins = new double[5];
 
 		setMargins();
@@ -27,30 +27,30 @@ public class Producer {
 		factories = new ArrayList<Factory>();
 		factories.add(new Factory());
 	}
-
-	public void start() {
-
-	}
-
-	public boolean bankrupted() {
-		return (cash <= 0 ? true : false);
-	}
-
+	
 	public void setMargins() {
 		for(int i=0; i<5; i++)
 			margins[i] = Utils.doubleInRange(1.2, 1.5);
 	}
-
-	public double getProductPrice(Product product) {		
-		return margins[product.getId()] * product.getPrice();
-	}
-
+	
 	public int getId() {
 		return this.id;
 	}
 
 	public double getCash() {
 		return this.cash;
+	}
+
+	public ArrayList<Factory> getFactories() {
+		return this.factories;
+	}
+	
+	public boolean bankrupt() {
+		return (cash <= 0 ? true : false);
+	}
+
+	public double getProductPrice(Product product) {		
+		return margins[product.getId()] * product.getPrice();
 	}
 
 	public boolean noFactoryAvailable() {
@@ -112,13 +112,9 @@ public class Producer {
 		for(Factory factory : factories)
 		{
 			orders.add(order);
-			factory.assignOrders(order);
+			factory.assignOrder(order);
 			factory.setIdle(false);
 		}
-	}
-
-	public ArrayList<Factory> getFactories() {
-		return this.factories;
 	}
 
 	public void receivePayment(double payable) {
@@ -132,6 +128,7 @@ public class Producer {
 			{
 				order.setStatus("COMPLETED");
 			}
+			cash -= order.getProduct().getCost() * order.quantity;
 		}
 
 		for(Factory factory : factories)
@@ -143,7 +140,7 @@ public class Producer {
 					order.setStatus("COMPLETED");
 			}
 			factory.updateIdel();
+			cash -= Factory.running_cost;
 		}
-		cash -= Factory.running_cost;
 	}
 }

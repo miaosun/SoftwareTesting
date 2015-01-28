@@ -63,7 +63,7 @@ public class Simulation {
 		/*
 		 *  Cycles
 		 */
-		for(int i=0; i<10; i++) 
+		for(int i=0; i<30; i++) 
 		{
 			System.out.println("********************** Cycle: " + i + " **************************");
 
@@ -76,13 +76,19 @@ public class Simulation {
 				consumers.get(j).start(producers, products);
 				consumers.get(j).updateCash();
 				consumers.get(j).updateWage(i, change_wage);
+				
+				if(i%10 == 0)  // update product's price after each 10 cycles
+				{
+					for(Product product: products)
+						product.updatePrice();
+				}
 			}
 
 			/*
 			 *  Required output
 			 */
 			for(int j=0; j<producers.size(); j++)
-			{
+			{	
 				System.out.println("   **************** Producer " + producers.get(j).getId() + " ****************");
 				System.out.println("      Number of orders in execution: " + producers.get(j).getNExecutionOrders());
 				System.out.println("      Number of completed orders: " + producers.get(j).getNCompletedOrders());
@@ -100,6 +106,12 @@ public class Simulation {
 
 				// update order status, update cash
 				producers.get(j).updateData(i);
+				
+
+				if(producers.get(j).bankrupt())
+				{
+					throw new IllegalArgumentException("\n::::::::::::::::::::: Producer " + j + " bankrupt ::::::::::::::::::::::::");
+				}
 			}
 			System.out.println("   Consumers' average cash: " + new DecimalFormat("#.00").format(Utils.averageConsumerCash(consumers)));
 			System.out.println("**********************************************************");

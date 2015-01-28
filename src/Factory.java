@@ -7,40 +7,30 @@ public class Factory {
 	public static double running_cost = 50;  // per cycle
 	public static double construction_cost = 1500;   // one-off
 	public static double startup_cost = 150;  // cost for restarting an idled factory
-	double efficiency;   // qualify how much of the product is completed each cycle
 	boolean idle;
 	
 	ArrayList<Order> orders;
 	
 	public Factory() {
 		idle = true;
-		efficiency = Utils.doubleInRange(0.5, 1.5);
 		counter++;
 		id = counter;
 		
 		orders = new ArrayList<Order>();
 	}
 	
-	double getEfficiency() {
-		return efficiency;
+	public int getId() {
+		return this.id;
 	}
 	
 	boolean isIdle() {
 		return this.idle;
 	}
 	
-	public int getId() {
-		return this.id;
-	}
-	
-	public void assignOrders(Order order) {
-		orders.add(order);
-	}
-	
 	public void setIdle(boolean idle) {
 		this.idle = idle;
 	}
-	
+
 	public void updateIdel() {
 		int aux = 0;
 		for(Order order : orders)
@@ -50,6 +40,10 @@ public class Factory {
 		}
 		if(aux == orders.size())
 			setIdle(true);
+	}
+	
+	public ArrayList<Order> getOrders() {
+		return this.orders;
 	}
 	
 	public int getNCompletedOrders() {
@@ -62,7 +56,7 @@ public class Factory {
 		return res;
 	}
 	
-	public ArrayList<Order> getOrders() {
-		return this.orders;
+	public void assignOrder(Order order) {
+		orders.add(order);
 	}
 }

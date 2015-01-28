@@ -3,43 +3,53 @@ import java.util.Random;
 
 public class Product {
 	double price;   // increase by a small random value (<5%) every 10 cycles
+	double cost;
 	int nCycles;
 	int type;
-	
-	static int count = -1;
+
+	static int counter = -1;
 	int id;
-	
+
 	public Product()
 	{
 		price = Utils.doubleInRange(10, 25);
 		type = Utils.intInRange(0, 4);
 		if(type == 0 || type == 1 || type == 2)
+		{
 			nCycles = 5;
+			cost = 5;
+		}
 		else
+		{
 			nCycles = 7;
-		
-		count++;
-		id = count;
+			cost = 7;
+		}
+
+		counter++;
+		id = counter;
+	}
+
+	public double getPrice() {
+		return this.price;
 	}
 	
-	public void updatePrice()  // calls once every 10 cycles
-	{
+	public double getCost() {
+		return this.cost;
+	}
+
+	public int getId() {
+		return this.id;
+	}
+
+	public int getNCycles() {
+		return this.nCycles;
+	}
+
+	public void updatePrice() {
+		// only calls after each 10 cycles
 		Random random = new Random();
 		double rand = random.nextDouble() * 0.05;
 
 		price *= (1+rand);
 	}
-	
-	public double getPrice() {
-		return this.price;
-	}
-	
-	public int getId() {
-		return this.id;
-	}
-	
-	public int getNCycles() {
-		return this.nCycles;
-	}
-
 }

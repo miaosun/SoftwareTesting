@@ -20,6 +20,10 @@ public class Order {
 		id = counter++;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+	
 	public String getStatus() {
 		return status;
 	}
@@ -27,16 +31,12 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public Product getProduct() {
+		return this.product;
+	}
 	
 	public double getPayable() {
 		return product.getPrice() * quantity;
-	}
-	
-	public int getId() {
-		return this.id;
-	}
-	
-	public Product getProduct() {
-		return this.product;
 	}
 }
