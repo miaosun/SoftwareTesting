@@ -25,7 +25,7 @@ public class ConsumerTestSuite {
 			products.add(new Product());
 		Consumer consumer = new Consumer();
 		consumer.selectProduct(products);
-		assertTrue(consumer.getProduct().getId()>=0 && consumer.getProduct().getId()<=4);
+		assertTrue(consumer.getProduct().getType()>=0 && consumer.getProduct().getType()<=4);
 	}
 	
 	@Test

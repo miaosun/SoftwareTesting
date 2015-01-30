@@ -89,7 +89,7 @@ public class Producer {
 			ArrayList<Order> orders = factory.getOrders();
 			for(Order order : orders)
 			{
-				if(product.getId() == order.getProduct().getId())
+				if(product.getType() == order.getProduct().getType())
 					return true;
 			}
 		}

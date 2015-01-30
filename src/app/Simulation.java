@@ -64,7 +64,7 @@ public class Simulation {
 		/*
 		 *  Cycles
 		 */
-		for(int i=0; i<30; i++) 
+		for(int i=0; i<28; i++) 
 		{
 			System.out.println("********************** Cycle: " + i + " **************************");
 
@@ -90,7 +90,7 @@ public class Simulation {
 			 */
 			for(int j=0; j<producers.size(); j++)
 			{	
-				System.out.println("   **************** Producer " + producers.get(j).getId() + " ****************");
+				System.out.println("   **************** Producer " + j + " ****************");
 				System.out.println("      Number of orders in execution: " + producers.get(j).getNExecutionOrders());
 				System.out.println("      Number of completed orders: " + producers.get(j).getNCompletedOrders());
 

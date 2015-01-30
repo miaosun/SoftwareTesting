@@ -8,9 +8,6 @@ public class Order {
 	Product product;
 	int quantity;
 	
-	static int counter = -1;
-	int id;
-	
 	public Order(Producer producer, Consumer consumer, Product product, int quantity) {
 		this.producer = producer;
 		this.consumer = consumer;
@@ -18,11 +15,6 @@ public class Order {
 		this.quantity = quantity;
 		
 		status = "IN_EXECUTION";
-		id = counter++;
-	}
-	
-	public int getId() {
-		return this.id;
 	}
 	
 	public String getStatus() {

@@ -54,17 +54,6 @@ public class ProducerTestSuite {
 		assertTrue(producer.noFactoryAvailable());
 	}
 	
-	//@Test
-	public void testGetNCompletedOrders() {  // fail because the test starts before the producer update data at the end of cycle
-		Producer producer = new Producer();
-		Consumer consumer = new Consumer();
-		Product product = new Product();
-		Order order = new Order(producer, consumer, product, 6);
-		int nOrder = producer.getNCompletedOrders();
-		order.setStatus("COMPLETED");
-		assertEquals(nOrder+1, producer.getNCompletedOrders());
-	}
-	
 	@Test 
 	public void testBuildFactory() {
 		Producer producer = new Producer();

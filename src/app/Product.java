@@ -8,9 +8,6 @@ public class Product {
 	int nCycles;
 	int type;
 
-	static int counter = -1;
-	int id;
-
 	public Product()
 	{
 		price = Utils.doubleInRange(10, 25);
@@ -25,9 +22,6 @@ public class Product {
 			nCycles = 7;
 			cost = 7;
 		}
-
-		counter++;
-		id = counter;
 	}
 
 	public double getPrice() {
@@ -36,10 +30,6 @@ public class Product {
 	
 	public double getCost() {
 		return this.cost;
-	}
-
-	public int getId() {
-		return this.id;
 	}
 	
 	public int getType() {

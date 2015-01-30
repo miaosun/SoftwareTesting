@@ -3,8 +3,6 @@ import java.util.ArrayList;
 
 
 public class Factory {
-	static int counter = -1;
-	int id;
 	public static double running_cost = 50;  // per cycle
 	public static double construction_cost = 1500;   // one-off
 	public static double startup_cost = 150;  // cost for restarting an idled factory
@@ -14,14 +12,8 @@ public class Factory {
 	
 	public Factory() {
 		idle = true;
-		counter++;
-		id = counter;
 		
 		orders = new ArrayList<Order>();
-	}
-	
-	public int getId() {
-		return this.id;
 	}
 	
 	public boolean isIdle() {
