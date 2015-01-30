@@ -13,7 +13,7 @@ import app.Product;
 public class ProducerTestSuite {
 
 	@Test
-	public void testCash() {
+	public void testGetCash() {
 		Producer producer = new Producer();
 		assertTrue(producer.getCash()<=11000 && producer.getCash()>=9000);
 	}
@@ -24,8 +24,8 @@ public class ProducerTestSuite {
 		assertEquals(1, producer.getFactories().size());
 	}
 	
-	//@Test
-	public void testProductPrice() {
+	@Test
+	public void testGetProductPrice() {
 		Product product = new Product();
 		Producer producer = new Producer();
 		assertTrue(product.getPrice()*1.2 <= producer.getProductPrice(product));

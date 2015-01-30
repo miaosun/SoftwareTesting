@@ -13,7 +13,7 @@ import app.Product;
 public class ConsumerTestSuite {
 
 	@Test
-	public void testCash() {
+	public void testGetCash() {
 		Consumer c = new Consumer();
 		assertTrue(c.getCash()>=135 && c.getCash()<=165);
 	}

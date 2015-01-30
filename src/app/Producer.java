@@ -51,7 +51,7 @@ public class Producer {
 	}
 
 	public double getProductPrice(Product product) {		
-		return margins[product.getId()] * product.getPrice();
+		return margins[product.getType()] * product.getPrice();
 	}
 
 	public boolean noFactoryAvailable() {

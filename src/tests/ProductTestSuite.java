@@ -32,4 +32,11 @@ public class ProductTestSuite {
 		p.updatePrice();
 		assertTrue(price*1.05 > p.getPrice());
 	}
+	
+	@Test 
+	public void testGetType() {
+		Product product = new Product();
+		int type = product.getType();
+		assertTrue(type <= 4 && type >=0);
+	}
 }

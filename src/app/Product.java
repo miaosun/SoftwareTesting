@@ -41,6 +41,10 @@ public class Product {
 	public int getId() {
 		return this.id;
 	}
+	
+	public int getType() {
+		return this.type;
+	}
 
 	public int getNCycles() {
 		return this.nCycles;
