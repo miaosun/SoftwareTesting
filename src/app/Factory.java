@@ -1,3 +1,4 @@
+package app;
 import java.util.ArrayList;
 
 
@@ -23,7 +24,7 @@ public class Factory {
 		return this.id;
 	}
 	
-	boolean isIdle() {
+	public boolean isIdle() {
 		return this.idle;
 	}
 	

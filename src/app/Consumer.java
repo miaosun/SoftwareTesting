@@ -1,3 +1,4 @@
+package app;
 import java.util.ArrayList;
 
 
@@ -10,7 +11,7 @@ public class Consumer {
 
 	public Consumer() {
 		double percentage = Utils.doubleInRange(-0.1, 0.1);
-		cash = 150 * (1+percentage);
+		cash = 150 * (1+percentage);   // 135 - 165
 
 		wage = 200;
 
@@ -110,5 +111,14 @@ public class Consumer {
 
 	public double getCash() {
 		return cash;
+	}
+	
+	public void setCash(double cash)
+	{
+		this.cash = cash;
+	}
+	
+	public Product getProduct() {
+		return this.product;
 	}
 }

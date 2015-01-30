@@ -1,3 +1,4 @@
+package app;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -110,12 +111,12 @@ public class Simulation {
 
 				if(producers.get(j).bankrupt())
 				{
-					throw new IllegalArgumentException("\n::::::::::::::::::::: Producer " + j + " bankrupt ::::::::::::::::::::::::");
+					throw new IllegalArgumentException("\n::::::::::::::::::::: Producer " + j + " bankrupt at cycle " + i + " ::::::::::::::::::::::::");
 				}
 			}
 			System.out.println("   Consumers' average cash: " + new DecimalFormat("#.00").format(Utils.averageConsumerCash(consumers)));
 			System.out.println("**********************************************************");
-			System.out.println();
+			System.out.println("\n");
 		}
 	}
 
